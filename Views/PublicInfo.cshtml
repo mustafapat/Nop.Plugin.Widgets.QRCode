@@ -1,0 +1,25 @@
+@model PublicInfoModel
+@{
+    Layout = "";
+}
+
+@if (!string.IsNullOrEmpty(Model.QRCodeBase64))
+{
+    var borderStyle = Model.ShowBorder 
+        ? $"border: {Model.BorderWidth}px solid {Model.BorderColor}; border-radius: {Model.BorderRadius}px;" 
+        : "";
+    
+    <div class="qrcode-widget" style="margin: 15px 0; text-align: center;">
+        <div class="qrcode-container" style="display: inline-block; padding: 12px; background: @Model.BackgroundColor; @borderStyle">
+            <img src="@Model.QRCodeBase64" 
+                 alt="QR Code" 
+                 width="@Model.Size" 
+                 height="@Model.Size"
+                 style="display: block;" />
+            @if (!string.IsNullOrEmpty(Model.HintText))
+            {
+                <p style="margin: 8px 0 0 0; font-size: 11px; color: #666;">@Model.HintText</p>
+            }
+        </div>
+    </div>
+}

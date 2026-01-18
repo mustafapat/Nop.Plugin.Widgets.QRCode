@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Language>
+  <LocaleResource Name="Plugins.Widgets.QRCode.Configuration">
+    <Value>QR Kod Ayarları</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Widgets.QRCode.Enabled">
+    <Value>QR Kod Widget'ını Etkinleştir</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Widgets.QRCode.Size">
+    <Value>QR Kod Boyutu (piksel)</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Widgets.QRCode.DisplayPosition">
+    <Value>Görüntüleme Konumu</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Widgets.QRCode.DisplayPosition.Before">
+    <Value>Ürün Resimlerinin Üstünde</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Widgets.QRCode.DisplayPosition.After">
+    <Value>Ürün Resimlerinin Altında</Value>
+  </LocaleResource>
+</Language>

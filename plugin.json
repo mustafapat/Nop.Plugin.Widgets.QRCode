@@ -1,0 +1,11 @@
+{
+  "Group": "Widgets",
+  "FriendlyName": "QR Code Widget",
+  "SystemName": "Widgets.QRCode",
+  "Version": "2.0.0",
+  "SupportedVersions": [ "4.80" ],
+  "Author": "EDUFABTECH.com",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Widgets.QRCode.dll",
+  "Description": "Displays QR code on product detail page for easy sharing"
+}

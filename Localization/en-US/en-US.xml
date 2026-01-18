@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Language>
+  <LocaleResource Name="Plugins.Widgets.QRCode.Configuration">
+    <Value>QR Code Settings</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Widgets.QRCode.Enabled">
+    <Value>Enable QR Code Widget</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Widgets.QRCode.Size">
+    <Value>QR Code Size (pixels)</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Widgets.QRCode.DisplayPosition">
+    <Value>Display Position</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Widgets.QRCode.DisplayPosition.Before">
+    <Value>Before Product Pictures</Value>
+  </LocaleResource>
+  <LocaleResource Name="Plugins.Widgets.QRCode.DisplayPosition.After">
+    <Value>After Product Pictures</Value>
+  </LocaleResource>
+</Language>

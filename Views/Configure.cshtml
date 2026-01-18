@@ -1,0 +1,217 @@
+@model ConfigurationModel
+@{
+    Layout = "_ConfigurePlugin";
+}
+
+@await Component.InvokeAsync(typeof(StoreScopeConfigurationViewComponent))
+
+<form asp-controller="WidgetsQRCode" asp-action="Configure" method="post">
+    <div class="cards-group">
+        <div class="card card-default">
+            <div class="card-header">
+                @T("Plugins.Widgets.QRCode.Configuration")
+            </div>
+            <div class="card-body">
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="Enabled_OverrideForStore" asp-input="Enabled" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="Enabled" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="Enabled" />
+                        <span asp-validation-for="Enabled"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="Size_OverrideForStore" asp-input="Size" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="Size" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="Size" />
+                        <span asp-validation-for="Size"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="WidgetZone_OverrideForStore" asp-input="WidgetZone" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="WidgetZone" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-select asp-for="WidgetZone" asp-items="Model.AvailableWidgetZones" />
+                        <span asp-validation-for="WidgetZone"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="HintText_OverrideForStore" asp-input="HintText" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="HintText" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="HintText" />
+                        <span asp-validation-for="HintText"></span>
+                    </div>
+                </div>
+                
+                <!-- Border Settings Section -->
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="ShowBorder_OverrideForStore" asp-input="ShowBorder" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="ShowBorder" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="ShowBorder" />
+                        <span asp-validation-for="ShowBorder"></span>
+                    </div>
+                </div>
+                <nop-nested-setting asp-for="ShowBorder">
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <nop-override-store-checkbox asp-for="BorderColor_OverrideForStore" asp-input="BorderColor" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                            <nop-label asp-for="BorderColor" />
+                        </div>
+                        <div class="col-md-9">
+                            <div class="input-group color-picker-wrapper">
+                                <input type="color" id="BorderColorPicker" value="@(string.IsNullOrEmpty(Model.BorderColor) ? "#dddddd" : Model.BorderColor)" 
+                                       style="width: 50px; height: 38px; padding: 2px; cursor: pointer; border: 1px solid #ced4da; border-radius: 4px 0 0 4px;" />
+                                <input asp-for="BorderColor" class="form-control" placeholder="#dddddd" style="border-radius: 0 4px 4px 0;" />
+                            </div>
+                            <span asp-validation-for="BorderColor"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <nop-override-store-checkbox asp-for="BorderWidth_OverrideForStore" asp-input="BorderWidth" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                            <nop-label asp-for="BorderWidth" />
+                        </div>
+                        <div class="col-md-9">
+                            <nop-editor asp-for="BorderWidth" />
+                            <span asp-validation-for="BorderWidth"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <nop-override-store-checkbox asp-for="BorderRadius_OverrideForStore" asp-input="BorderRadius" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                            <nop-label asp-for="BorderRadius" />
+                        </div>
+                        <div class="col-md-9">
+                            <nop-editor asp-for="BorderRadius" />
+                            <span asp-validation-for="BorderRadius"></span>
+                        </div>
+                    </div>
+                </nop-nested-setting>
+                
+                <!-- Background Color -->
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="BackgroundColor_OverrideForStore" asp-input="BackgroundColor" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="BackgroundColor" />
+                    </div>
+                    <div class="col-md-9">
+                        <div class="input-group color-picker-wrapper">
+                            <input type="color" id="BackgroundColorPicker" value="@(string.IsNullOrEmpty(Model.BackgroundColor) ? "#ffffff" : Model.BackgroundColor)" 
+                                   style="width: 50px; height: 38px; padding: 2px; cursor: pointer; border: 1px solid #ced4da; border-radius: 4px 0 0 4px;" />
+                            <input asp-for="BackgroundColor" class="form-control" placeholder="#ffffff" style="border-radius: 0 4px 4px 0;" />
+                        </div>
+                        <span asp-validation-for="BackgroundColor"></span>
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-9">
+                        <button type="submit" name="save" class="btn btn-primary">@T("Admin.Common.Save")</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Preview Card -->
+        <div class="card card-default">
+            <div class="card-header">
+                @T("Admin.Common.Preview")
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <div id="qrcode-preview" style="display: inline-block; padding: 12px;">
+                    <div style="width: 100px; height: 100px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #666;">
+                        QR Code Preview
+                    </div>
+                    <p style="margin: 8px 0 0 0; font-size: 11px; color: #666;" id="preview-hint">Scan to share</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script asp-location="Footer">
+    document.addEventListener('DOMContentLoaded', function () {
+        // Border Color Picker
+        var borderColorPicker = document.getElementById('BorderColorPicker');
+        var borderColorInput = document.getElementById('BorderColor');
+        
+        if (borderColorPicker && borderColorInput) {
+            borderColorPicker.addEventListener('input', function () {
+                borderColorInput.value = this.value;
+                updatePreview();
+            });
+            borderColorInput.addEventListener('input', function () {
+                if (/^#[0-9A-Fa-f]{6}$/.test(this.value)) {
+                    borderColorPicker.value = this.value;
+                }
+                updatePreview();
+            });
+        }
+        
+        // Background Color Picker
+        var bgColorPicker = document.getElementById('BackgroundColorPicker');
+        var bgColorInput = document.getElementById('BackgroundColor');
+        
+        if (bgColorPicker && bgColorInput) {
+            bgColorPicker.addEventListener('input', function () {
+                bgColorInput.value = this.value;
+                updatePreview();
+            });
+            bgColorInput.addEventListener('input', function () {
+                if (/^#[0-9A-Fa-f]{6}$/.test(this.value)) {
+                    bgColorPicker.value = this.value;
+                }
+                updatePreview();
+            });
+        }
+        
+        // Update preview when any setting changes
+        var inputs = document.querySelectorAll('#ShowBorder, #BorderWidth, #BorderRadius, #HintText');
+        inputs.forEach(function(input) {
+            input.addEventListener('change', updatePreview);
+            input.addEventListener('input', updatePreview);
+        });
+        
+        function updatePreview() {
+            var preview = document.getElementById('qrcode-preview');
+            var hintPreview = document.getElementById('preview-hint');
+            
+            var showBorder = document.getElementById('ShowBorder').checked;
+            var borderColor = borderColorInput ? borderColorInput.value : '#dddddd';
+            var borderWidth = document.getElementById('BorderWidth').value || 1;
+            var borderRadius = document.getElementById('BorderRadius').value || 8;
+            var bgColor = bgColorInput ? bgColorInput.value : '#ffffff';
+            var hintText = document.getElementById('HintText').value || 'Scan to share';
+            
+            if (showBorder) {
+                preview.style.border = borderWidth + 'px solid ' + borderColor;
+                preview.style.borderRadius = borderRadius + 'px';
+            } else {
+                preview.style.border = 'none';
+                preview.style.borderRadius = '0';
+            }
+            
+            preview.style.backgroundColor = bgColor;
+            hintPreview.textContent = hintText;
+        }
+        
+        // Initial preview update
+        updatePreview();
+    });
+</script>
