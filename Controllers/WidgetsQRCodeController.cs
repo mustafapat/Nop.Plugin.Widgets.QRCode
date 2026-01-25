@@ -38,49 +38,36 @@ public class WidgetsQRCodeController : BasePluginController
         _storeContext = storeContext;
     }
 
+    [HttpPost]
     [CheckPermission(StandardPermission.Configuration.MANAGE_WIDGETS)]
-    public async Task<IActionResult> Configure()
+    public async Task<IActionResult> Configure(ConfigurationModel model)
     {
         var storeScope = await _storeContext.GetActiveStoreScopeConfigurationAsync();
         var settings = await _settingService.LoadSettingAsync<QRCodeSettings>(storeScope);
 
-        var model = new ConfigurationModel
-        {
-            Enabled = settings.Enabled,
-            Size = settings.Size,
-            WidgetZone = settings.WidgetZone,
-            HintText = settings.HintText,
-            ShowBorder = settings.ShowBorder,
-            BorderColor = settings.BorderColor,
-            BorderWidth = settings.BorderWidth,
-            BorderRadius = settings.BorderRadius,
-            BackgroundColor = settings.BackgroundColor,
-            ActiveStoreScopeConfiguration = storeScope
-        };
+        settings.Enabled = model.Enabled;
+        settings.Size = model.Size;
+        settings.WidgetZone = model.WidgetZone;
+        settings.HintText = model.HintText;
+        settings.ShowBorder = model.ShowBorder;
+        settings.BorderColor = model.BorderColor;
+        settings.BorderWidth = model.BorderWidth;
+        settings.BorderRadius = model.BorderRadius;
+        settings.BackgroundColor = model.BackgroundColor;
 
-        // Widget zone seçenekleri
-        model.AvailableWidgetZones = new List<SelectListItem>
-        {
-            new() { Text = await _localizationService.GetResourceAsync("Plugins.Widgets.QRCode.WidgetZone.OverviewTop"), Value = PublicWidgetZones.ProductDetailsOverviewTop },
-            new() { Text = await _localizationService.GetResourceAsync("Plugins.Widgets.QRCode.WidgetZone.OverviewBottom"), Value = PublicWidgetZones.ProductDetailsOverviewBottom },
-            new() { Text = await _localizationService.GetResourceAsync("Plugins.Widgets.QRCode.WidgetZone.BeforePictures"), Value = PublicWidgetZones.ProductDetailsBeforePictures },
-            new() { Text = await _localizationService.GetResourceAsync("Plugins.Widgets.QRCode.WidgetZone.AfterPictures"), Value = PublicWidgetZones.ProductDetailsAfterPictures }
-        };
+        await _settingService.SaveSettingOverridablePerStoreAsync(settings, x => x.Enabled, model.Enabled_OverrideForStore, storeScope, false);
+        await _settingService.SaveSettingOverridablePerStoreAsync(settings, x => x.Size, model.Size_OverrideForStore, storeScope, false);
+        await _settingService.SaveSettingOverridablePerStoreAsync(settings, x => x.WidgetZone, model.WidgetZone_OverrideForStore, storeScope, false);
+        await _settingService.SaveSettingOverridablePerStoreAsync(settings, x => x.HintText, model.HintText_OverrideForStore, storeScope, false);
+        await _settingService.SaveSettingOverridablePerStoreAsync(settings, x => x.ShowBorder, model.ShowBorder_OverrideForStore, storeScope, false);
+        await _settingService.SaveSettingOverridablePerStoreAsync(settings, x => x.BorderColor, model.BorderColor_OverrideForStore, storeScope, false);
+        await _settingService.SaveSettingOverridablePerStoreAsync(settings, x => x.BorderWidth, model.BorderWidth_OverrideForStore, storeScope, false);
+        await _settingService.SaveSettingOverridablePerStoreAsync(settings, x => x.BorderRadius, model.BorderRadius_OverrideForStore, storeScope, false);
+        await _settingService.SaveSettingOverridablePerStoreAsync(settings, x => x.BackgroundColor, model.BackgroundColor_OverrideForStore, storeScope, true);
 
-        if (storeScope > 0)
-        {
-            model.Enabled_OverrideForStore = await _settingService.SettingExistsAsync(settings, x => x.Enabled, storeScope);
-            model.Size_OverrideForStore = await _settingService.SettingExistsAsync(settings, x => x.Size, storeScope);
-            model.WidgetZone_OverrideForStore = await _settingService.SettingExistsAsync(settings, x => x.WidgetZone, storeScope);
-            model.HintText_OverrideForStore = await _settingService.SettingExistsAsync(settings, x => x.HintText, storeScope);
-            model.ShowBorder_OverrideForStore = await _settingService.SettingExistsAsync(settings, x => x.ShowBorder, storeScope);
-            model.BorderColor_OverrideForStore = await _settingService.SettingExistsAsync(settings, x => x.BorderColor, storeScope);
-            model.BorderWidth_OverrideForStore = await _settingService.SettingExistsAsync(settings, x => x.BorderWidth, storeScope);
-            model.BorderRadius_OverrideForStore = await _settingService.SettingExistsAsync(settings, x => x.BorderRadius, storeScope);
-            model.BackgroundColor_OverrideForStore = await _settingService.SettingExistsAsync(settings, x => x.BackgroundColor, storeScope);
-        }
+        _notificationService.SuccessNotification(await _localizationService.GetResourceAsync("Admin.Plugins.Saved"));
 
-        return View("~/Plugins/Widgets.QRCode/Views/Configure.cshtml", model);
+        return await Configure();
     }
 
     [HttpPost]
