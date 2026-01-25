@@ -64,11 +64,14 @@ public class WidgetQRCodeViewComponent : NopViewComponent
         {
             using var qrGenerator = new QRCodeGenerator();
             var qrCodeData = qrGenerator.CreateQrCode(url, QRCodeGenerator.ECCLevel.Q);
-            using var qrCode = new BitmapByteQRCode(qrCodeData);
+            
+            // PngByteQRCode kullanın - platform bağımsız ve daha güvenilir
+            using var qrCode = new PngByteQRCode(qrCodeData);
             var qrCodeImage = qrCode.GetGraphic(pixelsPerModule);
+            
             return $"data:image/png;base64,{Convert.ToBase64String(qrCodeImage)}";
         }
-        catch
+        catch (Exception)
         {
             return string.Empty;
         }
